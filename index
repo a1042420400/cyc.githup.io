@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="button" @mousemove='start' value="浪起来">
+        <input type="button" @mouseover='end' value="低调">
+        <h1 @mouseover='end' @mouseout='start'>{{ msg }}</h1>
+        <a href="https://www.baidu.com" target="blank" @click.prevent.once='target'>度娘欢迎您~~</a>
+    </div>
+    <script>
+    var vm = new Vue({
+    
+        el:'#app',
+        data:{
+            msg:'恭喜杨素华与2019年3月6号18:35:51荣获“听话婆娘”称号!',
+            timer:null
+        },
+        methods:{
+            lang(){
+                var start = this.msg.substring(0,1)
+                var end = this.msg.substring(1)
+                this.msg = end+start
+            },
+            start(){
+
+                if(this.timer==null){
+                    this.timer=setInterval(()=>{
+                        this.lang()
+                    },100)
+                }
+            },
+            end(){
+                clearInterval(this.timer)
+                this.timer=null
+            },
+            target(){
+                console.log('跳转到度娘~~~')
+            }
+        },
+        mounted(){
+            if(this.timer==null){
+                    this.timer=setInterval(()=>{
+                        this.lang()
+                    },200)
+                }
+        }
+
+    })
+    </script>
+</body>
+</html>
